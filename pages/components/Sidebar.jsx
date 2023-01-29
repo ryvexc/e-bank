@@ -39,7 +39,7 @@ const Sidebar = () => {
         <div className="main-prop">MAIN</div>
         <ul>
           {navbar.map((menu, index) => {
-            return <li ref={refs[index]} className="nav-list clickanimation" key={menu.name} onClick={e => redirect(index)}>
+            return <li ref={refs[index]} className={"nav-list clickanimation " + (index == 0 ? "active" : "")} key={menu.name} onClick={e => redirect(index)}>
               <img src={menu.icon.src} alt="" />
               <p>{menu.name}</p>
             </li>
