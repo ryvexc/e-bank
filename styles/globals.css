@@ -1,5 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --primary-color: #4D9AD2;
+  --background-primary-color: #F8F3F3;
+  --etc: #C1C1C164;
+  --font-family: "Poppins";
 }
 
 @media (prefers-color-scheme: dark) {
@@ -12,23 +19,16 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  user-select: none;
 }
 
 html,
 body {
+  margin: 0px;
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: #C1C1C1;
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: var(--background-primary-color);
+  font-family: var(--font-family);
 }
 
 a {

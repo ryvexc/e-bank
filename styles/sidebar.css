@@ -1,14 +1,102 @@
 .sidebar {
   position: absolute;
   width: 268px;
-  height: 1080px;
+  height: 100vh;
   left: 0px;
   top: 0px;
-  background-color: #F8F3F3; 
+  padding: 30px;
+  background-color: var(--background-primary-color); 
+  border-right: 1px solid var(--etc);
+
+  backdrop-filter: blur(80px);
+  /* Note: backdrop-filter has minimal browser support */
+
 }
 
 .userbox {
-  margin-top: 66px;
-  margin-left: 24px;
-  margin-right: 50px;
+  width: 182px;
+  display: flex;
+  align-items: center;
+}
+
+.userbox .profile-pic {
+  min-width: 58px;
+  max-width: 58px;
+  width: 58px;
+  min-height: 58px;
+  max-height: 58px;
+  height: 58px;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+
+.userbox .profile-inf {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
+.userbox .profile-inf p:nth-child(1) {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 15;
+}
+
+.userbox .profile-inf p:nth-child(2) {
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: -2px;
+}
+
+.cus-hr {
+  margin-top: 20px;
+  height: 1px;
+  background-color: var(--etc);
+}
+
+.main-prop {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 24px;
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+
+  color: rgba(0, 0, 0, 0.44);
+}
+
+.main-prop {
+  margin: 15px;
+  margin-bottom: 0px;
+}
+
+.navbar ul li {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+
+.navbar ul li:hover {
+  background-color: #262D3206;
+  cursor: pointer;
+}
+
+.navbar ul li img {
+  margin: 15px;
+}
+
+.active {
+  background-color: #262D320a;
+}
+
+.clickanimation:active {
+  transform: scale(0.9);
 }
