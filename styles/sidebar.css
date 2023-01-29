@@ -1,0 +1,14 @@
+.sidebar {
+  position: absolute;
+  width: 268px;
+  height: 1080px;
+  left: 0px;
+  top: 0px;
+  background-color: #F8F3F3; 
+}
+
+.userbox {
+  margin-top: 66px;
+  margin-left: 24px;
+  margin-right: 50px;
+}
