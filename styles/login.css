@@ -1,0 +1,110 @@
+::root {
+  --input-background: rgba(57, 63, 84, 0.8);
+  --input-text-inactive: #7881A1;
+  --input-text-active: #BFD2FF;
+}
+
+.sign-box {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  width: 75%;
+  max-width: 600px;
+  max-height: 400px;
+  height: 50%;
+  min-width: 400px;
+}
+
+.sign-box * {
+  margin-bottom: 20px;
+}
+
+.sign-box h1 {
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+.sign-box input {
+  padding: 10px 20px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  transition: 0.4s;
+  padding-left: 0px;
+  background-color: transparent;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.sign-box input:focus {
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.sign-box button {
+  background-color: var(--primary-color);
+  color: var(--background-primary-color);
+  padding: 10px 20px;
+  margin-bottom: 0px;
+  width: 100%;
+  transition: 0.2s;
+}
+
+.sign-box button:hover {
+  border-radius: 10px;
+}
+
+.sign-box button:active {
+  transform: scale(0.9);
+}
+
+.sign-box .wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 20px;
+  margin-bottom: 0px;
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.wrapper .label {
+  font-weight: 400;
+  font-size: 15px;
+  color: rgb(116, 116, 116);
+  margin-bottom: -35px;
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.label-active {
+  font-size: 10px !important;
+  margin-bottom: -10px !important;
+  color: var(--primary-color) !important;
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  max-height: 150px;
+  height: 150px;
+}
+
+.sign-box {position:relative}
+.sign-box:before, .sign-box:after, .sign-box>:first-child:before, .sign-box>:first-child:after {
+    position:absolute; content:' ';
+    width:40px; height: 40px;
+    border-color:black; /* or whatever colour */
+    border-style:solid; /* or whatever style */
+}
+.sign-box:before {top:0;left:0;border-width: 1px 0 0 1px}
+.sign-box:after {top:0;right:0;border-width: 1px 1px 0 0}
+.sign-box>:first-child:before {bottom:0;right:0;border-width: 0 1px 1px 0}
+.sign-box>:first-child:after {bottom:0;left:0;border-width: 0 0 1px 1px}
