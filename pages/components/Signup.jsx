@@ -20,6 +20,7 @@ const Signup = () => {
             const body = {
                 email: e.currentTarget.email.value,
                 name: e.currentTarget.name.value,
+                phone: e.currentTarget.phone.value,
                 password: e.currentTarget.password.value
             }
             const res = await fetch("/api/users", {
