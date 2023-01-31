@@ -7,6 +7,11 @@ const Login = () => {
   const [errMsg, setErrMsg] = useState("")
   const [user, { mutate }] = useUser()
   const [loading, isLoading] = useState(false)
+  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('')
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+
   useEffect(() => {
     if (user) router.replace("/")
   }, [user])
@@ -14,9 +19,37 @@ const Login = () => {
   const SignUpSubmitHandler = async (e) => {
     isLoading(true)
     e.preventDefault()
+    if (password !== password) {
+      setErrMsg("Password doesn't match!")
+    } else {
+      isLoading(true)
+      const body = {
+        email,
+        name,
+        phone,
+        password
+      }
+      const res = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "appplication/json" },
+        body: JSON.stringify(body)
+      })
+      if (res.status === 201) {
+        const userObj = await res.json()
+        mutate(userObj)
+      } else {
+        isLoading(false)
+        setErrMsg(await res.text())
+      }
+    }
+  }
+
+  const SignInSubmitHandler = async (e) => {
+    isLoading(true)
+    e.preventDefault()
     const body = {
-      email: e.currentTarget.email.value,
-      password: e.currentTarget.password.value
+      email,
+      password
     }
     const res = await fetch("/api/auth", {
       method: "POST",
@@ -37,13 +70,13 @@ const Login = () => {
       <h1>Sign Up</h1>
       <div className="input-wrapper">
         <label className="label" ref={labelsRef[0]}>Full Name</label>
-        <input id="0" ref={inputsRef[0]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <input id="0" ref={inputsRef[0]} onChange={(e) => setName(e.target.value)} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
         <label className="label" ref={labelsRef[1]}>Phone Number</label>
-        <input id="1" ref={inputsRef[1]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <input id="1" ref={inputsRef[1]} onChange={(e) => setPhone(e.target.value)} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
         <label className="label" ref={labelsRef[2]}>Email Address</label>
-        <input id="2" ref={inputsRef[2]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <input id="2" ref={inputsRef[2]} onChange={(e) => setEmail(e.target.value)} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
         <label className="label" ref={labelsRef[3]}>Password</label>
-        <input id="3" ref={inputsRef[3]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <input id="3" ref={inputsRef[3]} onChange={(e) => setPassword(e.target.value)} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
       </div>
       <button onClick={e => SubmitHandler(e)} className="global-button-prop">Sign Up</button>
       <p className='link' onClick={e => linkOnclick(e)}>Already have account? Sign In</p>
@@ -55,11 +88,11 @@ const Login = () => {
       <h1>Sign In</h1>
       <div className="input-wrapper">
         <label className="label" ref={labelsRef[0]}>Email Address</label>
-        <input id="0" ref={inputsRef[0]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <input id="0" ref={inputsRef[0]} type="text" onChange={(e) => setEmail(e.target.value)} onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
         <label className="label" ref={labelsRef[1]}>Password</label>
-        <input id="1" ref={inputsRef[1]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <input id="1" ref={inputsRef[1]} type="text" onChange={(e) => setPassword(e.target.value)} onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
       </div>
-      <button onClick={e => SubmitHandler(e)}>Sign In</button>
+      <button onClick={e => SignInSubmitHandler(e)}>Sign In</button>
       <p className='link' onClick={e => linkOnclick(e)}>Just Register? Sign Up</p>
     </>
   }

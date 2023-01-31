@@ -1,17 +1,23 @@
-import { MongoClient } from 'mongodb';
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
-const client = new MongoClient("MONGODB_URI=mongodb+srv://e-bank.8669arl.mongodb.net/?authSource=%24external&authMechanism=MONGODB-X509&retryWrites=true&w=majority", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-export async function setupDB(db) {
-    db.collection('users').createIndex({ email: 1 }, { unique: true });
+global.mongo = global.mongo || {}
+
+export async function getMongoClient() {
+    if (!global.mongo.client) {
+        const uri = "mongodb+srv://Ryze:alfapro14@e-bank.8669arl.mongodb.net/?retryWrites=true&w=majority";
+        global.mongo.client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    }
+    await global.mongo.client.connect()
+    return global.mongo.client
 }
 
 export default async function database(req, res, next) {
-    if (!client.isConnected()) await client.connect();
-    req.dbClient = client;
-    req.db = client.db("Authenticate");
-    await setupDb(req.db);
+    if (!global.mongo.client) {
+        const uri = "mongodb+srv://Ryze:alfapro14@e-bank.8669arl.mongodb.net/?retryWrites=true&w=majority";
+        global.mongo.client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    }
+    req.dbClient = await getMongoClient()
+    req.db = req.dbClient.db()
+    if (!indexesCreated) await createIndexes(req.db);
     return next();
 }
