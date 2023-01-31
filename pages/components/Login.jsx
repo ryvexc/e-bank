@@ -11,7 +11,7 @@ const Login = () => {
     if (user) router.replace("/")
   }, [user])
 
-  const SubmitHandler = async (e) => {
+  const SignUpSubmitHandler = async (e) => {
     isLoading(true)
     e.preventDefault()
     const body = {
@@ -32,9 +32,67 @@ const Login = () => {
     }
   }
 
-  // ini gausa di edit
-  const labelsRef = [useRef(null), useRef(null), useRef(null)];
-  const inputsRef = [useRef(null), useRef(null), useRef(null)];
+  const SignUp = () => {
+    return <>
+      <h1>Sign Up</h1>
+      <div className="input-wrapper">
+        <label className="label" ref={labelsRef[0]}>Full Name</label>
+        <input id="0" ref={inputsRef[0]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <label className="label" ref={labelsRef[1]}>Phone Number</label>
+        <input id="1" ref={inputsRef[1]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <label className="label" ref={labelsRef[2]}>Email Address</label>
+        <input id="2" ref={inputsRef[2]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <label className="label" ref={labelsRef[3]}>Password</label>
+        <input id="3" ref={inputsRef[3]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+      </div>
+      <button onClick={e => SubmitHandler(e)}>Sign Up</button>
+      <p className='link' onClick={e => linkOnclick(e)}>Already have account? Sign In</p>
+    </>
+  }
+
+  const SignIn = () => {
+    return <>
+      <h1>Sign In</h1>
+      <div className="input-wrapper">
+        <label className="label" ref={labelsRef[0]}>Email Address</label>
+        <input id="0" ref={inputsRef[0]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+        <label className="label" ref={labelsRef[1]}>Password</label>
+        <input id="1" ref={inputsRef[1]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
+      </div>
+      <button onClick={e => SubmitHandler(e)}>Sign In</button>
+      <p className='link' onClick={e => linkOnclick(e)}>Just Register? Sign Up</p>
+    </>
+  }
+
+  let isSignIn = false;
+  const boxLogin = useRef(null);
+  const boxState = useRef(null);
+  const [loginBoxState, setLoginBoxState] = useState(<SignUp />);
+  const linkOnclick = async (e) => {
+    boxLogin.current.style.width = "0px";
+    boxState.current.style.opacity = "0";
+    await new Promise(resolve => setTimeout(resolve, 100));
+    boxState.current.style.display = "none";
+    await new Promise(resolve => setTimeout(resolve, 100));
+    boxState.current.style.opacity = "1";
+    await new Promise(resolve => setTimeout(resolve, 100));
+    boxState.current.style.display = "block";
+
+    if (isSignIn) {
+      console.log("Spawning SignUP");
+      setLoginBoxState(<SignUp />);
+      isSignIn = false;
+    }
+    else {
+      console.log("Spawning SignIN");
+      setLoginBoxState(<SignIn />);
+      isSignIn = true;
+    }
+    boxLogin.current.style.width = "400px";
+  }
+
+  const labelsRef = [useRef(null), useRef(null), useRef(null), useRef(null)];
+  const inputsRef = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const setFocus = (e) => {
     labelsRef[parseInt(e.target.id)].current.classList.add("label-active");
     for (let i = 0; i < inputsRef.length; i++) if (i != e.target.id) inputsRef[i].current.style.transform = "scale(0.95)";
@@ -50,18 +108,9 @@ const Login = () => {
 
   return (<>
     <main className="login-page">
-      <div className="sign-box">
-        <div className="wrapper">
-          <h1>Sign Up</h1>
-          <div className="input-wrapper">
-            <label className="label" ref={labelsRef[0]}>Full Name</label>
-            <input id="0" ref={inputsRef[0]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
-            <label className="label" ref={labelsRef[1]}>Phone Number</label>
-            <input id="1" ref={inputsRef[1]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
-            <label className="label" ref={labelsRef[2]}>Email Address</label>
-            <input id="2" ref={inputsRef[2]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
-          </div>
-          <button onClick={e => SubmitHandler(e)}>Sign Up</button>
+      <div className="sign-box" ref={boxLogin}>
+        <div className="wrapper" ref={boxState}>
+          {loginBoxState}
         </div>
       </div>
     </main>
