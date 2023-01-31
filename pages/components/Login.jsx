@@ -45,7 +45,7 @@ const Login = () => {
         <label className="label" ref={labelsRef[3]}>Password</label>
         <input id="3" ref={inputsRef[3]} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
       </div>
-      <button onClick={e => SubmitHandler(e)}>Sign Up</button>
+      <button onClick={e => SubmitHandler(e)} className="global-button-prop">Sign Up</button>
       <p className='link' onClick={e => linkOnclick(e)}>Already have account? Sign In</p>
     </>
   }
@@ -94,15 +94,14 @@ const Login = () => {
   const labelsRef = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const inputsRef = [useRef(null), useRef(null), useRef(null), useRef(null)];
   const setFocus = (e) => {
+    console.log(isSignIn);
     labelsRef[parseInt(e.target.id)].current.classList.add("label-active");
-    for (let i = 0; i < inputsRef.length; i++) if (i != e.target.id) inputsRef[i].current.style.transform = "scale(0.95)";
-    for (let i = 0; i < labelsRef.length; i++) if (i != e.target.id) labelsRef[i].current.style.transform = "scale(0.95)";
+    for (let i = 0; i < (isSignIn ? 1 : inputsRef.length); i++) if (i != e.target.id) inputsRef[i].current.style.transform = "scale(0.95)";
     labelsRef[parseInt(e.target.id)].current.style.opacity = "1";
   }
   const setAbort = (e) => {
     labelsRef[parseInt(e.target.id)].current.classList.remove("label-active");
-    for (let i = 0; i < inputsRef.length; i++) if (i != e.target.id) inputsRef[i].current.style.transform = "scale(1)";
-    for (let i = 0; i < labelsRef.length; i++) if (i != e.target.id) labelsRef[i].current.style.transform = "scale(1)";
+    for (let i = 0; i < (isSignIn ? 1 : inputsRef.length); i++) if (i != e.target.id) inputsRef[i].current.style.transform = "scale(1)";
     labelsRef[parseInt(e.target.id)].current.style.opacity = e.target.value != "" ? "0" : "1";
   }
 

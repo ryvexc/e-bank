@@ -10,7 +10,20 @@
 
   backdrop-filter: blur(80px);
   /* Note: backdrop-filter has minimal browser support */
+  transition: 0.15s;
+}
 
+.sidebar .main-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+.top-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .userbox {
@@ -40,7 +53,7 @@
 .userbox .profile-inf p:nth-child(1) {
   color: var(--primary-color);
   font-weight: 600;
-  font-size: 15;
+  font-size: 12px;
 }
 
 .userbox .profile-inf p:nth-child(2) {
