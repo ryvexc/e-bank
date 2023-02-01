@@ -1,5 +1,5 @@
 import nextConnect from "next-connect";
-import isEmail from "validator/lib/isemail";
+import isEmail from "validator/lib/isEmail";
 import normalizeEmail from "validator/lib/normalizeEmail";
 import bcrypt from 'bcryptjs';
 import middleware from "@/middlewares/middleware";
@@ -24,6 +24,7 @@ handler.post(async (req, res) => {
     }
     const PasswordHash = await bcrypt.hash(password, 25)
     const user = await req.db.collection('users').insertOne({ email, password: PasswordHash, name }).then(({ ops }) => ops[0])
+    console.log(user)
     req.login(user, (err) => {
         if (err) throw err
         res.statusCode(201).json({

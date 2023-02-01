@@ -24,10 +24,10 @@ const Login = () => {
     } else {
       isLoading(true)
       const body = {
-        email,
-        name,
-        phone,
-        password
+        email: email,
+        name: name,
+        phone: phone,
+        password: password
       }
       const res = await fetch("/api/users", {
         method: "POST",
@@ -36,6 +36,7 @@ const Login = () => {
       })
       if (res.status === 201) {
         const userObj = await res.json()
+        console.log(userObj)
         mutate(userObj)
       } else {
         isLoading(false)
@@ -58,6 +59,7 @@ const Login = () => {
     })
     if (res.status === 200) {
       const usrObj = await res.json()
+      console.log(userObj)
       mutate(usrObj)
     } else {
       isLoading(false)
@@ -78,7 +80,7 @@ const Login = () => {
         <label className="label" ref={labelsRef[3]}>Password</label>
         <input id="3" ref={inputsRef[3]} onChange={(e) => setPassword(e.target.value)} type="text" onFocus={e => setFocus(e)} onBlur={e => setAbort(e)} autoComplete="off" required />
       </div>
-      <button onClick={e => SubmitHandler(e)} className="global-button-prop">Sign Up</button>
+      <button onClick={e => SignUpSubmitHandler(e)} className="global-button-prop">Sign Up</button>
       <p className='link' onClick={e => linkOnclick(e)}>Already have account? Sign In</p>
     </>
   }

@@ -5,10 +5,6 @@ import passport from '../lib/passport';
 
 const middleware = nextConnect();
 
-middleware
-    .use(database)
-    .use(session)
-    .use(passport.initialize()) // passport middleware handles authenthentication, which populates req.user
-    .use(passport.session());
+middleware.use(database, session, passport.initialize(), passport.session());
 
 export default middleware;
